@@ -28,5 +28,10 @@ namespace LogAPI.Data
             modelBuilder.Entity<LogEntry>().Property(x => x.RequestId).HasMaxLength(20);
 
         }
+
+        public async Task<bool> SaveAsync()
+        {
+            return await SaveChangesAsync() >= 0;
+        }
     }
 }

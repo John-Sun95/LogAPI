@@ -29,11 +29,21 @@ namespace LogAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateLog(LogEntry logEntry)
+        public async Task<IActionResult> CreateLog(IEnumerable<LogEntry> logEntries)
         {
-            _logService.LogToDatabase(logEntry);
-            await _logService.SaveAsync();
-            return Ok();
+            if(logEntries == null)
+            {
+                throw new ArgumentNullException(nameof(logEntries));
+            }
+            else
+            {
+                await _logService.LogToDatabase(logEntries);
+                await _logService.LogToFile(logEntries);
+                //await _logService.LogToFlatFile(logEntries);
+                //await _logService.LogToKafka(logEntries);
+                //await _logService.LogToMQ(logEntries);
+            }
+           return Ok();
         }
     }
 }

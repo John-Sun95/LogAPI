@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogAPI.Migrations
 {
     [DbContext(typeof(LogDbContext))]
-    [Migration("20220805122618_Initial")]
+    [Migration("20220806085952_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

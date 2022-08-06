@@ -1,9 +1,11 @@
 ﻿using LogAPI.Data;
 using LogAPI.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
+
 
 namespace LogAPI.Services
 {
@@ -14,27 +16,66 @@ namespace LogAPI.Services
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public void LogToDatabase(LogEntry logEntry)
+        public async Task<bool> LogToDatabase(IEnumerable<LogEntry> logEntries)
         {
-            if(logEntry == null)
+            if(logEntries == null)
             {
-                throw new ArgumentNullException(nameof(logEntry));
+                throw new ArgumentNullException(nameof(logEntries));
             }
             else
             {
-                _context.Add(logEntry);
+                foreach (var LogEntry in logEntries)
+                {
+                    _context.Add(LogEntry);
+                }
+              return await _context.SaveAsync();
             }
         }
 
-        public void LogToFlatFile(LogEntry logEntry)
+        public async Task LogToFile(IEnumerable<LogEntry> logEntries)
         {
-            // ToDo
+            string filePath = Directory.GetCurrentDirectory() + "\\logs";
+            string fileName = filePath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            FileStream fs;
+            StreamWriter sw;
+            if (File.Exists(fileName))
+            {
+                fs = new FileStream(fileName, FileMode.Append, FileAccess.Write);
+            }
+            else
+            {
+                fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+            }
+            sw = new StreamWriter(fs);
+            string log;
+            foreach (var logEntry in logEntries)
+            {
+                log = JsonConvert.SerializeObject(logEntry);
+                sw.WriteLine(log);
+            }
+
+
+            sw.Close();
+            fs.Close();
         }
 
-
-        public async Task<bool> SaveAsync()
+        public Task<bool> LogToFlatFile(IEnumerable<LogEntry> logEntries)
         {
-            return await _context.SaveChangesAsync() >= 0;
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> LogToKafka(IEnumerable<LogEntry> logEntries)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> LogToMQ(IEnumerable<LogEntry> logEntries)
+        {
+            throw new NotImplementedException();
         }
     }
 }

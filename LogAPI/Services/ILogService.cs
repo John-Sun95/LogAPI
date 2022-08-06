@@ -8,9 +8,11 @@ namespace LogAPI.Services
 {
     public interface ILogService
     {
-        void LogToDatabase(LogEntry logEntry);
-        Task<bool> SaveAsync();
-        void LogToFlatFile(LogEntry logEntry);
+        Task<bool> LogToDatabase(IEnumerable<LogEntry> logEntries);
+        Task<bool> LogToFlatFile(IEnumerable<LogEntry> logEntries);
+        Task<bool> LogToKafka(IEnumerable<LogEntry> logEntries);
+        Task<bool> LogToMQ(IEnumerable<LogEntry> logEntries);
+        Task LogToFile(IEnumerable<LogEntry> logEntries);
 
 
     }
