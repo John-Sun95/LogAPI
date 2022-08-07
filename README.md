@@ -9,7 +9,7 @@ Assumptions:1. LogAPI receives log data by http post method;
             
 Two destinations: log file and database(sqlite)
 
-Summary: My implementation only covers the very basic case. As i don't know much about 
+Summary: This project is implemented using .netcore3.1. It only covers the basic case. As i don't know much about 
 kafka, mq and flatfile, they are not implemented and left with empty methods. Normal log file
 and sqlite database are used as two different destinations in this project. 
 
