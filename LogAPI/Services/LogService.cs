@@ -16,7 +16,7 @@ namespace LogAPI.Services
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<bool> LogToDatabase(IEnumerable<LogEntry> logEntries)
+        public async Task<bool> LogToDatabase(IEnumerable<LogEntry> logEntries) // Write log to database
         {
             if(logEntries == null)
             {
@@ -32,7 +32,7 @@ namespace LogAPI.Services
             }
         }
 
-        public async Task LogToFile(IEnumerable<LogEntry> logEntries)
+        public async Task LogToFile(IEnumerable<LogEntry> logEntries)    //Write log to local files
         {
             string filePath = Directory.GetCurrentDirectory() + "\\logs";
             string fileName = filePath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".log";
@@ -57,8 +57,6 @@ namespace LogAPI.Services
                 log = JsonConvert.SerializeObject(logEntry);
                 sw.WriteLine(log);
             }
-
-
             sw.Close();
             fs.Close();
         }

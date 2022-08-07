@@ -1,10 +1,8 @@
 ﻿using LogAPI.Entities;
 using LogAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LogAPI.Controllers
@@ -22,7 +20,7 @@ namespace LogAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetLog()
+        public async Task<IActionResult> GetLog() // Just For Test, Retrun Empty Log
         {
             var result = new LogEntry();
             return new JsonResult(result);
@@ -31,19 +29,12 @@ namespace LogAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLog(IEnumerable<LogEntry> logEntries)
         {
-            if(logEntries == null)
-            {
-                throw new ArgumentNullException(nameof(logEntries));
-            }
-            else
-            {
-                await _logService.LogToDatabase(logEntries);
-                await _logService.LogToFile(logEntries);
-                //await _logService.LogToFlatFile(logEntries);
-                //await _logService.LogToKafka(logEntries);
-                //await _logService.LogToMQ(logEntries);
-            }
-           return Ok();
+            await _logService.LogToDatabase(logEntries);
+            await _logService.LogToFile(logEntries);
+            //await _logService.LogToFlatFile(logEntries);
+            //await _logService.LogToKafka(logEntries);
+            //await _logService.LogToMQ(logEntries);
+            return Ok();                     
         }
     }
 }

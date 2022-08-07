@@ -1,8 +1,5 @@
 ﻿using LogAPI.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LogAPI.Data
@@ -19,13 +16,13 @@ namespace LogAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<LogEntry>().Property(x => x.ApplicationID).HasMaxLength(20);
-            modelBuilder.Entity<LogEntry>().Property(x => x.TraceID).HasMaxLength(20);
-            modelBuilder.Entity<LogEntry>().Property(x => x.Severity).HasMaxLength(20);
-            modelBuilder.Entity<LogEntry>().Property(x => x.Timestamp).HasMaxLength(20);
-            modelBuilder.Entity<LogEntry>().Property(x => x.Message).HasMaxLength(50);
-            modelBuilder.Entity<LogEntry>().Property(x => x.ComponentName).HasMaxLength(10);
-            modelBuilder.Entity<LogEntry>().Property(x => x.RequestId).HasMaxLength(20);
+            modelBuilder.Entity<LogEntry>().Property(x => x.ApplicationID).IsRequired();
+            modelBuilder.Entity<LogEntry>().Property(x => x.TraceID).IsRequired();
+            modelBuilder.Entity<LogEntry>().Property(x => x.Severity).HasMaxLength(30).IsRequired(); ;
+            modelBuilder.Entity<LogEntry>().Property(x => x.Timestamp).HasMaxLength(30).IsRequired(); ;
+            modelBuilder.Entity<LogEntry>().Property(x => x.Message).HasMaxLength(50).IsRequired(); ;
+            modelBuilder.Entity<LogEntry>().Property(x => x.ComponentName).HasMaxLength(30).IsRequired(); ;
+            modelBuilder.Entity<LogEntry>().Property(x => x.RequestId).IsRequired(); ;
 
         }
 

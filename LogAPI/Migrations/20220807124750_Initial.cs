@@ -12,13 +12,13 @@ namespace LogAPI.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ApplicationID = table.Column<int>(maxLength: 20, nullable: false),
-                    TraceID = table.Column<int>(maxLength: 20, nullable: false),
-                    Severity = table.Column<string>(maxLength: 20, nullable: true),
-                    Timestamp = table.Column<string>(maxLength: 20, nullable: true),
-                    Message = table.Column<string>(maxLength: 50, nullable: true),
-                    ComponentName = table.Column<string>(maxLength: 10, nullable: true),
-                    RequestId = table.Column<int>(maxLength: 20, nullable: false)
+                    ApplicationID = table.Column<int>(nullable: false),
+                    TraceID = table.Column<int>(nullable: false),
+                    Severity = table.Column<string>(maxLength: 30, nullable: false),
+                    Timestamp = table.Column<string>(maxLength: 30, nullable: false),
+                    Message = table.Column<string>(maxLength: 50, nullable: false),
+                    ComponentName = table.Column<string>(maxLength: 30, nullable: false),
+                    RequestId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

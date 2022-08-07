@@ -22,32 +22,33 @@ namespace LogAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ApplicationID")
-                        .HasColumnType("INTEGER")
-                        .HasMaxLength(20);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ComponentName")
+                        .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(10);
+                        .HasMaxLength(30);
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
                     b.Property<int>("RequestId")
-                        .HasColumnType("INTEGER")
-                        .HasMaxLength(20);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Severity")
+                        .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(30);
 
                     b.Property<string>("Timestamp")
+                        .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(30);
 
                     b.Property<int>("TraceID")
-                        .HasColumnType("INTEGER")
-                        .HasMaxLength(20);
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
 
