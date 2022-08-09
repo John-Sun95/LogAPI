@@ -34,7 +34,7 @@ namespace LogAPI.Controllers
             //await _logService.LogToFlatFile(logEntries);
             //await _logService.LogToKafka(logEntries);
             //await _logService.LogToMQ(logEntries);
-            return Ok();                     
+            return Accepted();                     
         }
     }
 }
