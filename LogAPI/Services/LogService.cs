@@ -32,33 +32,36 @@ namespace LogAPI.Services
             }
         }
 
-        public async Task LogToFile(IEnumerable<LogEntry> logEntries)    //Write log to local files
+        public Task LogToFile(IEnumerable<LogEntry> logEntries)    //Write log to local files
         {
-            string filePath = Directory.GetCurrentDirectory() + "\\logs";
-            string fileName = filePath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".log";
-            if (!Directory.Exists(filePath))
+            return Task.Run(() =>
             {
-                Directory.CreateDirectory(filePath);
-            }
-            FileStream fs;
-            StreamWriter sw;
-            if (File.Exists(fileName))
-            {
-                fs = new FileStream(fileName, FileMode.Append, FileAccess.Write);
-            }
-            else
-            {
-                fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-            }
-            sw = new StreamWriter(fs);
-            string log;
-            foreach (var logEntry in logEntries)
-            {
-                log = JsonConvert.SerializeObject(logEntry);
-                sw.WriteLine(log);
-            }
-            sw.Close();
-            fs.Close();
+                string filePath = Directory.GetCurrentDirectory() + "\\logs";
+                string fileName = filePath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                FileStream fs;
+                StreamWriter sw;
+                if (File.Exists(fileName))
+                {
+                    fs = new FileStream(fileName, FileMode.Append, FileAccess.Write);
+                }
+                else
+                {
+                    fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+                }
+                sw = new StreamWriter(fs);
+                string log;
+                foreach (var logEntry in logEntries)
+                {
+                    log = JsonConvert.SerializeObject(logEntry);
+                    sw.WriteLine(log);
+                }
+                sw.Close();
+                fs.Close();
+            });
         }
 
         public Task<bool> LogToFlatFile(IEnumerable<LogEntry> logEntries)
